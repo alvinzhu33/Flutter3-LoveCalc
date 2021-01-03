@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:love_calculator_3/widgets/names_container.dart';
 
 // TODO (6): Import the newly downloaded http library.
+import 'package:http/http.dart' as http;
 
 import 'results_screen.dart';
 
@@ -32,6 +33,12 @@ class HomeScreen extends StatelessWidget {
             //    of our Love Calculator API and the names as two query parameters.
             // Our api also needs us to pass two headers, a host and a key.
             // TODO (2): Create a Map of <String, String> to hold the host and key headers.
+            String url = "https://love-calculator.p.rapidapi.com/getPercentage?fname=${name1.text.trim()}&sname=${name2.text.trim()}";
+            Map<String, String> headers = {
+              "x-rapidapi-key": 'dc50bb1022mshd960ab004c52bbcp1e6968jsn88efb21f27a3',
+              "x-rapidapi-host": 'love-calculator.p.rapidapi.com'
+              // 'useQueryString': 'true'
+            };
 
             // Now we let's make the request to our API.
             // To do that, we need to include the http package.
@@ -42,7 +49,11 @@ class HomeScreen extends StatelessWidget {
 
             // Now that we have the library, let's use it to make the request to our API
             // TODO (7): Call the http.get method and pass the url and headers
-            // TODO (8): Print the response to the console to see if everything is working.
+            // TODO (8): Print the response to the console to see if everything is working
+            var response = await http.get(url, headers: headers);
+            print(response.body);
+
+            // print("HERE");
           },
         ),
       ),
